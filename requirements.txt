@@ -10,3 +10,4 @@ pytest-asyncio          # Pour tester les endpoints asynchrones
 httpx                   # Client HTTP pour les tests d'intégration
 sqlite-utils            # Pour interagir facilement avec SQLite (historique des prédictions)
 plotly
+python-dotenv

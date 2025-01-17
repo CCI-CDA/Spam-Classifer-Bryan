@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>Résultats</title>
     <link rel="stylesheet" href="/static/css/bootstrap.css">
 </head>
 <body>
@@ -13,17 +13,24 @@
           <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="/docs">Vers la documentation
-                  <span class="visually-hidden">(current)</span>
-                </a>
+                <a class="nav-link" href="/docs">Documentation</a>
               </li>
             </ul>
           </div>
         </div>
-      </nav>
-    <h1>Résultat</h1>
-    <p>Votre message : "{{ message }}"</p>
-    <p>Résultat : {{ result }}</p>
-    <a href="/">Revenir à la page d'accueil</a>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>Résultat de l'analyse</h2>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Message analysé :</h5>
+                <p class="card-text">{{ message }}</p>
+                <h5 class="card-title">Résultat :</h5>
+                <p class="card-text">{{ result }}</p>
+            </div>
+        </div>
+        <a href="/" class="btn btn-primary mt-3">Retour</a>
+    </div>
 </body>
 </html>
