@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 import pymysql
 from datetime import datetime
+from passlib.context import CryptContext
 
 # Charger les variables d'environnement
 load_dotenv()
@@ -12,6 +13,9 @@ load_dotenv()
 # Configuration de la base de données
 DATABASE_URL = os.getenv('DATABASE_URL')
 print(f"Tentative de connexion à : {DATABASE_URL}")
+
+# Ajoutez cette configuration après les imports
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Créer la base de données si elle n'existe pas
 def create_database():
@@ -59,15 +63,20 @@ def create_database():
             
             print("Base de données et tables créées avec succès")
             
-            # Insérer des utilisateurs de test
+            # Insérer des utilisateurs de test avec des mots de passe hachés
             cursor.execute("SELECT COUNT(*) FROM users")
             if cursor.fetchone()[0] == 0:
+                # Hacher les mots de passe avant l'insertion
+                hashed_password1 = pwd_context.hash("password123")
+                hashed_password2 = pwd_context.hash("password456")
+                hashed_password3 = pwd_context.hash("password789")
+                
                 cursor.execute("""
                     INSERT INTO users (username, email, password) VALUES 
-                    ('alice', 'alice@test.com', 'password123'),
-                    ('bob', 'bob@test.com', 'password456'),
-                    ('charlie', 'charlie@test.com', 'password789')
-                """)
+                    ('alice', 'alice@test.com', %s),
+                    ('bob', 'bob@test.com', %s),
+                    ('charlie', 'charlie@test.com', %s)
+                """, (hashed_password1, hashed_password2, hashed_password3))
                 
                 # Insérer quelques messages de test
                 cursor.execute("""

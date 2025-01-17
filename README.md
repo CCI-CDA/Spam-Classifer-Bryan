@@ -4,7 +4,7 @@ commande docker:
 docker build --tag grpccicdaacr.azurecr.io/spam-classifier-bryan .
 commande github:
 
-uvicorn server:app --reload
+uvicorn app:app --reload
 pip install -r requirements.txt
 
 Dupliquer la bd local sur le serv distant
